@@ -8,7 +8,7 @@ export default function Game() {
   const { status } = useGame();
 
   return (
-    <Box h='100vh' display='flex' flexFlow='column' justifyContent='center'>
+    <Box h='100vh' display='flex' flexFlow='column' justifyContent='center' backgroundColor='gray.100'>
       <Center>
         {status === GameStatus.IDLE && <StartCard />}
         {status === GameStatus.RUNNING && <BoardCard />}
