@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import GameStatus from '../types/GameStatus';
 import GameMode from '../types/GameMode';
 
@@ -12,10 +12,11 @@ interface IGame {
 
 interface IGameContext {
   status: GameStatus;
-  game: IGame | null;
+  game: IGame | undefined;
   startGame: (mode: GameMode, n: number, m: number) => void;
   endGame: () => void;
   resetGame: () => void;
+  takeMatches: (n: number) => void;
 }
 
 type Props = {
@@ -36,7 +37,24 @@ export function useGame() {
 
 export default function GameProvider({ children }: Props) {
   const [status, setStatus] = useState(GameStatus.IDLE);
-  const [game, setGame] = useState<IGame | null>(null);
+  const [game, setGame] = useState<IGame | undefined>();
+
+  useEffect(() => {
+    if (status === GameStatus.RUNNING && !game?.isUserTurn) {
+      const take = game?.maxTake ? 1 : 0;
+      setGame((game) => {
+        if (game) {
+          return {
+            ...game,
+            availableMatches: game.availableMatches - take,
+            botMatches: game.botMatches + take,
+            isUserTurn: true,
+            maxTake: Math.max(0, Math.min(game.availableMatches - take, game.maxTake)),
+          };
+        }
+      });
+    }
+  }, [game]);
 
   const startGame = (mode: GameMode, n: number, m: number) => {
     setGame({
@@ -49,10 +67,27 @@ export default function GameProvider({ children }: Props) {
 
     setStatus(GameStatus.RUNNING);
   };
+
   const endGame = () => setStatus(GameStatus.FINISHED);
   const resetGame = () => setStatus(GameStatus.IDLE);
 
+  const takeMatches = (take: number) => {
+    setGame((game) => {
+      if (game) {
+        return {
+          ...game,
+          availableMatches: game.availableMatches - take,
+          playerMatches: game.playerMatches + take,
+          isUserTurn: false,
+          maxTake: Math.max(0, Math.min(game.availableMatches - take, game.maxTake)),
+        };
+      }
+    });
+  };
+
   return (
-    <GameContext.Provider value={{ status, game, startGame, endGame, resetGame }}>{children}</GameContext.Provider>
+    <GameContext.Provider value={{ status, game, takeMatches, startGame, endGame, resetGame }}>
+      {children}
+    </GameContext.Provider>
   );
 }
