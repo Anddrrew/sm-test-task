@@ -1,8 +1,9 @@
 import BoardCard from '../components/BoardCard';
+import ResultCard from '../components/ResultCard';
 import StartCard from '../components/StartCard';
 import { useGame } from '../providers/GameProvider';
 import GameStatus from '../types/GameStatus';
-import { Box, Button, ButtonGroup, Center } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 
 export default function Game() {
   const { status } = useGame();
@@ -12,23 +13,8 @@ export default function Game() {
       <Center>
         {status === GameStatus.IDLE && <StartCard />}
         {status === GameStatus.RUNNING && <BoardCard />}
-        {status === GameStatus.FINISHED && <FinishedGameComponent />}
+        {status === GameStatus.FINISHED && <ResultCard />}
       </Center>
     </Box>
   );
 }
-
-const FinishedGameComponent: React.FC = () => {
-  const { resetGame } = useGame();
-
-  return (
-    <>
-      <div>Finished Game Component</div>
-      <ButtonGroup>
-        <Button colorScheme='blue' onClick={resetGame}>
-          To menu
-        </Button>
-      </ButtonGroup>
-    </>
-  );
-};

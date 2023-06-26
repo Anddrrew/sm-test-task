@@ -3,6 +3,7 @@ import GameStatus from '../types/GameStatus';
 import GameMode from '../types/GameMode';
 
 interface IGame {
+  mode: GameMode;
   isUserTurn: boolean;
   maxTake: number;
   availableMatches: number;
@@ -40,6 +41,12 @@ export default function GameProvider({ children }: Props) {
   const [game, setGame] = useState<IGame | undefined>();
 
   useEffect(() => {
+    if (status === GameStatus.RUNNING && !game?.availableMatches) {
+      endGame();
+    }
+  }, [game]);
+
+  useEffect(() => {
     if (status === GameStatus.RUNNING && !game?.isUserTurn) {
       const take = game?.maxTake ? 1 : 0;
       setGame((game) => {
@@ -58,6 +65,7 @@ export default function GameProvider({ children }: Props) {
 
   const startGame = (mode: GameMode, n: number, m: number) => {
     setGame({
+      mode,
       isUserTurn: mode === GameMode.PLAYER,
       maxTake: m,
       availableMatches: 2 * n + 1,
