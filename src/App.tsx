@@ -1,9 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { Game } from './pages';
+import GameProvider from './providers/GameProvider';
 
 function App() {
   return (
     <ChakraProvider>
-      <div>APP</div>
+      <GameProvider>
+        <Game />
+      </GameProvider>
     </ChakraProvider>
   );
 }
