@@ -22,9 +22,11 @@ export default function GameProvider({ children }: Props) {
   const [game, setGame] = useState<IGame | undefined>();
 
   useEffect(() => {
-    if (!game?.availableMatches) endGame();
-    if (!game?.isUserTurn) botTakeMatches();
-  }, [game]);
+    if (status === GameStatus.RUNNING) {
+      if (!game?.availableMatches) endGame();
+      if (!game?.isUserTurn) botTakeMatches();
+    }
+  }, [game, status]);
 
   const startGame = (mode: GameMode, n: number, m: number) => {
     setGame({
