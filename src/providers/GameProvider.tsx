@@ -47,7 +47,9 @@ export default function GameProvider({ children }: Props) {
 
   const takeMatches = (take: number) => updateGame((game) => handleTake(game, take));
 
-  const botTakeMatches = () => {
+  const botTakeMatches = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
     updateGame((game) => {
       const { availableMatches, playerMatches, botMatches, maxTake } = game;
       const take = getQuantityTake(availableMatches, playerMatches, botMatches, maxTake);
