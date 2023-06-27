@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -22,7 +23,6 @@ import {
 import { useGame } from '../providers/GameProvider';
 import { useEffect, useState } from 'react';
 import GameMode from '../types/GameMode';
-import { FireIcon } from '@heroicons/react/24/outline';
 
 export default function StartCard() {
   const { startGame } = useGame();
@@ -36,14 +36,14 @@ export default function StartCard() {
 
   return (
     <Card align='center'>
-      <CardHeader>
+      <CardHeader paddingBottom={0}>
         <Heading size='md'>Matchsticks</Heading>
       </CardHeader>
-      <CardBody>
-        <Stack gap={4}>
-          <Center w='60'>
-            <FireIcon />
-          </Center>
+      <CardBody paddingTop={0}>
+        <Center>
+          <Box fontSize='9xl'>🔥</Box>
+        </Center>
+        <Stack gap={3}>
           <FormControl>
             <FormLabel>Game Mode</FormLabel>
             <RadioGroup value={mode} onChange={(v) => setMode(v as GameMode)}>

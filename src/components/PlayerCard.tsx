@@ -1,5 +1,4 @@
-import { Card, CardBody, CardHeader, Heading } from '@chakra-ui/react';
-import { UserCircleIcon, CpuChipIcon } from '@heroicons/react/24/outline';
+import { Box, Card, CardBody, Heading, Stack, Text } from '@chakra-ui/react';
 
 type Props = {
   hasTurn: boolean;
@@ -9,13 +8,13 @@ type Props = {
 
 export default function PlayerCard({ isUser, hasTurn, matches }: Props) {
   return (
-    <Card h='100%' align='center' boxShadow={hasTurn ? 'outline' : 'none'}>
-      <CardHeader>
-        <Heading size='md'>{isUser ? 'Player' : 'AI'}</Heading>
-      </CardHeader>
+    <Card h='100%' boxShadow={hasTurn ? 'outline' : 'base'}>
       <CardBody w='full'>
-        {isUser ? <UserCircleIcon /> : <CpuChipIcon />}
-        <pre>{JSON.stringify({ isUser: !!isUser, hasTurn, matches }, null, 2)}</pre>
+        <Stack align='center'>
+          <Box fontSize='9xl'>{isUser ? '🧑' : '🤖'}</Box>
+          <Heading size='md'>{isUser ? 'Player' : 'Bot'}</Heading>
+          <Text>{matches}</Text>
+        </Stack>
       </CardBody>
     </Card>
   );

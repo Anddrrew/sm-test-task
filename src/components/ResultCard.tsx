@@ -4,8 +4,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  CardHeader,
-  Center,
   Heading,
   Stack,
   Table,
@@ -15,7 +13,6 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useGame } from '../providers/GameProvider';
-import { FaceFrownIcon, TrophyIcon } from '@heroicons/react/24/outline';
 
 export default function ResultCard() {
   const { game, resetGame } = useGame();
@@ -29,27 +26,23 @@ export default function ResultCard() {
 
   return (
     <Card align='center'>
-      <CardHeader>
-        <Heading size='md'>{isWon ? 'You won!' : 'You lost!'}</Heading>
-      </CardHeader>
       <CardBody>
-        <Stack gap={3}>
-          <Center>
-            <Box w='60'>{isWon ? <TrophyIcon /> : <FaceFrownIcon />}</Box>
-          </Center>
+        <Stack gap={3} align='center'>
+          <Box fontSize='9xl'>{isWon ? '🏆' : '😞'}</Box>
+          <Heading size='md'>{isWon ? 'You won!' : 'You lost!'}</Heading>
           <TableContainer>
             <Table variant='simple'>
               <Tbody>
                 <Tr>
-                  <Td>Game Mode</Td>
+                  <Td>Game mode</Td>
                   <Td>{game.mode}</Td>
                 </Tr>
                 <Tr>
-                  <Td>Player Matches</Td>
+                  <Td>Player matches</Td>
                   <Td isNumeric>{game.playerMatches}</Td>
                 </Tr>
                 <Tr>
-                  <Td>AI Matches</Td>
+                  <Td>Bot matches</Td>
                   <Td isNumeric>{game.botMatches}</Td>
                 </Tr>
               </Tbody>
@@ -59,7 +52,7 @@ export default function ResultCard() {
       </CardBody>
       <CardFooter>
         <Button colorScheme='blue' onClick={resetGame}>
-          Ok
+          OK
         </Button>
       </CardFooter>
     </Card>
