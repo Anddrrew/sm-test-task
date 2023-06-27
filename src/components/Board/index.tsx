@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Container, Grid, GridItem } from '@chakra-ui/react';
 import { useGame } from '../../providers/GameProvider';
-import { useEffect, useState } from 'react';
 import Controls from './Controls';
 import Info from './Info';
 import Player from './Player';

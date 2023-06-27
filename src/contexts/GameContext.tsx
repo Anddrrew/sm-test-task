@@ -1,7 +1,5 @@
 import { createContext } from 'react';
-import GameMode from '../types/GameMode';
-import GameStatus from '../types/GameStatus';
-import IGame from '../types/IGame';
+import { GameMode, GameStatus, IGame } from '../types';
 
 interface IGameContext {
   status: GameStatus;

@@ -1,9 +1,9 @@
+import { Box, Center } from '@chakra-ui/react';
+import { useGame } from '../providers/GameProvider';
+import { GameStatus } from '../types';
 import Board from './Board';
 import ResultCard from './ResultCard';
 import StartCard from './StartCard';
-import { useGame } from '../providers/GameProvider';
-import GameStatus from '../types/GameStatus';
-import { Box, Center } from '@chakra-ui/react';
 
 export default function Game() {
   const { status } = useGame();

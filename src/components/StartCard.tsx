@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,8 +10,8 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
-  HStack,
   Heading,
+  HStack,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -21,8 +22,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useGame } from '../providers/GameProvider';
-import { useEffect, useState } from 'react';
-import GameMode from '../types/GameMode';
+import { GameMode } from '../types';
 
 export default function StartCard() {
   const { startGame } = useGame();

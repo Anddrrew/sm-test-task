@@ -1,9 +1,7 @@
 import { ReactNode, useContext, useEffect, useState } from 'react';
-import GameStatus from '../types/GameStatus';
-import GameMode from '../types/GameMode';
-import chooseMatches from '../utils/chooseMatches';
 import GameContext from '../contexts/GameContext';
-import IGame from '../types/IGame';
+import { GameMode, GameStatus, IGame } from '../types';
+import chooseMatches from '../utils/chooseMatches';
 
 type Props = {
   children: ReactNode;
