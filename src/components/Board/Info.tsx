@@ -4,7 +4,7 @@ type Props = {
   matches: number;
 };
 
-export default function InfoCard({ matches }: Props) {
+export default function Info({ matches }: Props) {
   return (
     <Card h='100%'>
       <CardBody w='full'>

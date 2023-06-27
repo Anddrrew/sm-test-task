@@ -6,7 +6,7 @@ type Props = {
   isUser?: boolean;
 };
 
-export default function PlayerCard({ isUser, hasTurn, matches }: Props) {
+export default function Player({ isUser, hasTurn, matches }: Props) {
   return (
     <Card h='100%' boxShadow={hasTurn ? 'outline' : 'base'}>
       <CardBody w='full'>

@@ -1,11 +1,11 @@
 import { Container, Grid, GridItem } from '@chakra-ui/react';
-import { useGame } from '../providers/GameProvider';
-import PlayerCard from './PlayerCard';
+import { useGame } from '../../providers/GameProvider';
 import { useEffect, useState } from 'react';
-import InfoCard from './InfoCard';
-import ControlsCard from './ControlsCard';
+import Controls from './Controls';
+import Info from './Info';
+import Player from './Player';
 
-export default function BoardCard() {
+export default function Board() {
   const { game, takeMatches, resetGame } = useGame();
   const [take, setTake] = useState(game?.maxTake || 0);
 
@@ -28,16 +28,16 @@ export default function BoardCard() {
     <Container maxW='container.lg'>
       <Grid templateRows='repeat(3, 1fr)' templateColumns='repeat(3, 1fr)' gap={4}>
         <GridItem rowSpan={2}>
-          <PlayerCard matches={game.playerMatches} hasTurn={game.isUserTurn} isUser />
+          <Player matches={game.playerMatches} hasTurn={game.isUserTurn} isUser />
         </GridItem>
         <GridItem rowSpan={2}>
-          <InfoCard matches={game.availableMatches} />
+          <Info matches={game.availableMatches} />
         </GridItem>
         <GridItem rowSpan={2}>
-          <PlayerCard matches={game?.botMatches} hasTurn={!game.isUserTurn} />
+          <Player matches={game?.botMatches} hasTurn={!game.isUserTurn} />
         </GridItem>
         <GridItem rowSpan={1} colStart={2}>
-          <ControlsCard
+          <Controls
             take={take}
             maxTake={game.maxTake}
             onChange={handleChange}

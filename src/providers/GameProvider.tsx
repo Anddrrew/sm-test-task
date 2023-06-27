@@ -1,31 +1,13 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import GameStatus from '../types/GameStatus';
 import GameMode from '../types/GameMode';
 import chooseMatches from '../utils/chooseMatches';
-
-interface IGame {
-  mode: GameMode;
-  isUserTurn: boolean;
-  maxTake: number;
-  availableMatches: number;
-  botMatches: number;
-  playerMatches: number;
-}
-
-interface IGameContext {
-  status: GameStatus;
-  game: IGame | undefined;
-  startGame: (mode: GameMode, n: number, m: number) => void;
-  endGame: () => void;
-  resetGame: () => void;
-  takeMatches: (n: number) => void;
-}
+import GameContext from '../contexts/GameContext';
+import IGame from '../types/IGame';
 
 type Props = {
   children: ReactNode;
 };
-
-const GameContext = createContext<IGameContext | undefined>(undefined);
 
 export function useGame() {
   const context = useContext(GameContext);
@@ -42,13 +24,9 @@ export default function GameProvider({ children }: Props) {
   const [game, setGame] = useState<IGame | undefined>();
 
   useEffect(() => {
-    if (status === GameStatus.RUNNING && !game?.availableMatches) {
-      endGame();
-    }
-  }, [game]);
+    if (!game?.availableMatches) endGame();
 
-  useEffect(() => {
-    if (status === GameStatus.RUNNING && !game?.isUserTurn) {
+    if (!game?.isUserTurn) {
       setGame((game) => {
         if (game) {
           const { availableMatches, playerMatches, botMatches, maxTake } = game;

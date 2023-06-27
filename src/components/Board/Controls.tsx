@@ -21,7 +21,7 @@ type Props = {
   onClick: (take: number) => void;
 };
 
-export default function ControlsCard({ take, maxTake, isDisabled, onChange, onClick }: Props) {
+export default function Controls({ take, maxTake, isDisabled, onChange, onClick }: Props) {
   return (
     <Card h='100%' align='center' size='sm'>
       <CardBody w='full'>
