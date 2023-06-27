@@ -49,7 +49,7 @@ export default function StartCard() {
             <RadioGroup value={mode} onChange={(v) => setMode(v as GameMode)}>
               <HStack>
                 <Radio value={GameMode.PLAYER}>Player</Radio>
-                <Radio value={GameMode.AI}>AI</Radio>
+                <Radio value={GameMode.BOT}>Bot</Radio>
               </HStack>
             </RadioGroup>
           </FormControl>

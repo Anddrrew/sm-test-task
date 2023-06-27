@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import GameStatus from '../types/GameStatus';
 import GameMode from '../types/GameMode';
+import chooseMatches from '../utils/chooseMatches';
 
 interface IGame {
   mode: GameMode;
@@ -48,15 +49,16 @@ export default function GameProvider({ children }: Props) {
 
   useEffect(() => {
     if (status === GameStatus.RUNNING && !game?.isUserTurn) {
-      const take = game?.maxTake ? 1 : 0;
       setGame((game) => {
         if (game) {
+          const { availableMatches, playerMatches, botMatches, maxTake } = game;
+          const take = chooseMatches(availableMatches, playerMatches, botMatches, maxTake);
           return {
             ...game,
-            availableMatches: game.availableMatches - take,
-            botMatches: game.botMatches + take,
+            availableMatches: availableMatches - take,
+            botMatches: botMatches + take,
             isUserTurn: true,
-            maxTake: Math.max(0, Math.min(game.availableMatches - take, game.maxTake)),
+            maxTake: Math.max(0, Math.min(availableMatches - take, maxTake)),
           };
         }
       });
@@ -82,12 +84,13 @@ export default function GameProvider({ children }: Props) {
   const takeMatches = (take: number) => {
     setGame((game) => {
       if (game) {
+        const { availableMatches, playerMatches, maxTake } = game;
         return {
           ...game,
-          availableMatches: game.availableMatches - take,
-          playerMatches: game.playerMatches + take,
+          availableMatches: availableMatches - take,
+          playerMatches: playerMatches + take,
           isUserTurn: false,
-          maxTake: Math.max(0, Math.min(game.availableMatches - take, game.maxTake)),
+          maxTake: Math.max(0, Math.min(availableMatches - take, maxTake)),
         };
       }
     });

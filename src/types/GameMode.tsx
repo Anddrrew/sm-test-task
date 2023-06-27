@@ -1,6 +1,6 @@
 enum GameMode {
   PLAYER = 'Player',
-  AI = 'AI',
+  BOT = 'Bot',
 }
 
 export default GameMode;
