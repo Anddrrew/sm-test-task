@@ -3,7 +3,7 @@
  * Perhaps should try to count the number of player matches when the availableMatches approach the maxTake intersection
  */
 
-export default function chooseMatches(
+export default function getQuantityTake(
   availableMatches: number,
   playerMatches: number,
   botMatches: number,
