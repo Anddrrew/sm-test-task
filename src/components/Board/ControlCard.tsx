@@ -21,9 +21,9 @@ type Props = {
   onClick: (take: number) => void;
 };
 
-export default function Controls({ take, maxTake, isDisabled, onChange, onClick }: Props) {
+export default function ControlCard({ take, maxTake, isDisabled, onChange, onClick }: Props) {
   return (
-    <Card h='100%' align='center' size='sm'>
+    <Card align='center' size='sm'>
       <CardBody w='full'>
         <HStack justify='space-between' align='baseline'>
           <FormLabel>Match quantity</FormLabel>

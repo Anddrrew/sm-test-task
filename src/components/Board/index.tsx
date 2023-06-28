@@ -1,43 +1,41 @@
 import { useEffect, useState } from 'react';
 import { Container, Grid, GridItem } from '@chakra-ui/react';
 import { useGame } from '../../providers/GameProvider';
-import Controls from './Controls';
-import Info from './Info';
-import Player from './Player';
+import ControlCard from './ControlCard';
+import InfoCard from './InfoCard';
 
 export default function Board() {
   const { game, takeMatches, resetGame } = useGame();
   const [take, setTake] = useState(game?.maxTake || 0);
 
   useEffect(() => {
-    if (game) {
-      setTake(take <= game.maxTake ? take : game.maxTake);
-    }
+    if (game) setTake(take <= game.maxTake ? take : game.maxTake);
   }, [game]);
 
   const handleChange = (n: number) => setTake(n);
   const handleClick = () => takeMatches(take);
 
   if (!game) {
-    // TODO: REMOVE THIS BY REFACTORING
     resetGame();
     return <></>;
   }
 
+  const gameInfo = [
+    { name: 'Player', symbol: '🧑', matches: game.playerMatches, isActive: game.isUserTurn },
+    { name: 'Heap', symbol: '🔥', matches: game.availableMatches },
+    { name: 'Bot', symbol: '🤖', matches: game.botMatches, isActive: !game.isUserTurn },
+  ];
+
   return (
     <Container maxW='container.lg'>
       <Grid templateRows='repeat(3, 1fr)' templateColumns='repeat(3, 1fr)' gap={4}>
-        <GridItem rowSpan={2}>
-          <Player matches={game.playerMatches} hasTurn={game.isUserTurn} isUser />
-        </GridItem>
-        <GridItem rowSpan={2}>
-          <Info matches={game.availableMatches} />
-        </GridItem>
-        <GridItem rowSpan={2}>
-          <Player matches={game?.botMatches} hasTurn={!game.isUserTurn} />
-        </GridItem>
-        <GridItem rowSpan={1} colStart={2}>
-          <Controls
+        {gameInfo.map((info, idx) => (
+          <GridItem key={idx} rowSpan={[1, 1, 2]} display='flex' flexDirection='column' justifyContent='flex-end'>
+            <InfoCard {...info} />
+          </GridItem>
+        ))}
+        <GridItem rowSpan={[1]} colStart={[1, 1, 2]} colSpan={[3, 3, 1]}>
+          <ControlCard
             take={take}
             maxTake={game.maxTake}
             onChange={handleChange}
