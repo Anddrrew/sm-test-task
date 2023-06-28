@@ -12,17 +12,13 @@ import {
   FormLabel,
   Heading,
   HStack,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Radio,
   RadioGroup,
   Stack,
 } from '@chakra-ui/react';
 import { useGame } from '../providers/GameProvider';
 import { GameMode } from '../types';
+import NumberInput from './common/NumberInput';
 
 export default function StartCard() {
   const { startGame } = useGame();
@@ -43,10 +39,10 @@ export default function StartCard() {
         <Center>
           <Box fontSize='9xl'>🔥</Box>
         </Center>
-        <Stack gap={3}>
+        <Stack gap={2}>
           <FormControl>
-            <FormLabel>Game Mode</FormLabel>
             <RadioGroup value={mode} onChange={(v) => setMode(v as GameMode)}>
+              <FormLabel>Game Mode</FormLabel>
               <HStack>
                 <Radio value={GameMode.PLAYER}>Player</Radio>
                 <Radio value={GameMode.BOT}>Bot</Radio>
@@ -56,25 +52,13 @@ export default function StartCard() {
 
           <FormControl>
             <FormLabel>n</FormLabel>
-            <NumberInput value={n} min={1} onChange={(v) => setN(Number(v))} isRequired>
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
+            <NumberInput value={n} min={1} onChange={setN} />
             <FormHelperText>Amount of matches = 2n + 1</FormHelperText>
           </FormControl>
 
           <FormControl>
             <FormLabel>m</FormLabel>
-            <NumberInput value={m} min={1} max={2 * n + 1} onChange={(v) => setM(Number(v))} isRequired>
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
+            <NumberInput value={m} min={1} max={2 * n + 1} onChange={setM} />
             <FormHelperText>Can take 1 to m matches at a time</FormHelperText>
           </FormControl>
         </Stack>

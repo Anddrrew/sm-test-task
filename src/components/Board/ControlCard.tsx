@@ -1,17 +1,5 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  FormLabel,
-  HStack,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from '@chakra-ui/react';
+import { Button, Card, CardBody, CardFooter, FormLabel, HStack, Text } from '@chakra-ui/react';
+import NumberInput from '../common/NumberInput';
 
 type Props = {
   take: number;
@@ -29,13 +17,7 @@ export default function ControlCard({ take, maxTake, isDisabled, onChange, onCli
           <FormLabel>Match quantity</FormLabel>
           <Text>Max: {maxTake}</Text>
         </HStack>
-        <NumberInput value={take} min={1} max={maxTake} onChange={(v) => onChange(Number(v))}>
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+        <NumberInput value={take} min={1} max={maxTake} onChange={onChange} />
       </CardBody>
       <CardFooter>
         <Button colorScheme='blue' onClick={() => onClick(take)} isDisabled={isDisabled}>
