@@ -25,8 +25,8 @@ export default function ResultCard() {
   const isWon = game.playerMatches % 2 === 0;
 
   return (
-    <Card align='center'>
-      <CardBody>
+    <Card align='center' w='72'>
+      <CardBody w='full'>
         <Stack gap={3} align='center'>
           <Box fontSize='9xl'>{isWon ? '🏆' : '😞'}</Box>
           <Heading size='md'>{isWon ? 'You won!' : 'You lost!'}</Heading>

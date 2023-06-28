@@ -31,7 +31,7 @@ export default function StartCard() {
   const handleStart = () => startGame(mode, n, m);
 
   return (
-    <Card align='center'>
+    <Card align='center' w='72'>
       <CardHeader paddingBottom={0}>
         <Heading size='md'>Matchsticks</Heading>
       </CardHeader>
